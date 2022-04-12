@@ -39,7 +39,6 @@ composer.callbackQuery(/^location_lat=(\w+)/, async (ctx) => {
     arr.push(element);
   });
   const type = ctx.callbackQuery?.data?.split("_")[3];
-  console.log(arr);
 
   return ctx.editMessageText(
     `Sizga xizmat ko'rsatishdan mamnunmiz!\n\n${await makePost(
