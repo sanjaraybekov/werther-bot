@@ -1,7 +1,7 @@
 import { getDate } from "./garDate";
 import { getWeatherInfo } from "./getWeatherInfo";
 
-export const makePost = async (districts: any, ctx: any) => {
+export const makePost = async (districts: any, ctx: any, type: string) => {
   const data = await getWeatherInfo(
     [districts?.latitude, districts?.langitude] || []
   );

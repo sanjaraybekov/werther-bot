@@ -21,15 +21,15 @@ composer.callbackQuery(texts.region, (ctx) => {
     parse_mode: "HTML",
   });
 });
-composer.callbackQuery(/^send_lat=(\w+)/, (ctx) => {
-  var regex = /[\d|,|.|e|E|\+]+/g;
-  const location = ctx.callbackQuery.data.match(regex);
-  const arr: any = [];
-  location?.map((element) => {
-    arr.push(element);
-  });
-  return ctx.replyWithLocation(Number(arr[2]), Number(arr[1]));
-});
+// composer.callbackQuery(/^send_lat=(\w+)/, (ctx) => {
+//   var regex = /[\d|,|.|e|E|\+]+/g;
+//   const location = ctx.callbackQuery.data.match(regex);
+//   const arr: any = [];
+//   location?.map((element) => {
+//     arr.push(element);
+//   });
+//   return ctx.replyWithLocation(Number(arr[2]), Number(arr[1]));
+// });
 
 composer.callbackQuery(/^location_lat=(\w+)/, async (ctx) => {
   var regex = /[\d|,|.|e|E|\+]+/g;
@@ -38,32 +38,32 @@ composer.callbackQuery(/^location_lat=(\w+)/, async (ctx) => {
   location?.map((element) => {
     arr.push(element);
   });
+  const type = ctx.callbackQuery?.data?.split("_")[3];
+  console.log(arr);
+
   return ctx.editMessageText(
     `Sizga xizmat ko'rsatishdan mamnunmiz!\n\n${await makePost(
       { latitude: arr[0], langitude: arr[1] },
-      ctx
+      ctx,
+      String(type)
     )}`,
     {
       reply_markup: {
         inline_keyboard: [
           [
             {
+              text: t(ctx, texts.hourly),
+              callback_data: `location_lat=${arr[0]}_lon=${arr[1]}_${texts.hourly}`,
+            },
+            {
               text: t(ctx, texts.weekly),
-              callback_data: texts.weekly,
-            },
-            {
-              text: t(ctx, texts.half_mounth),
-              callback_data: texts.half_mounth,
-            },
-            {
-              text: t(ctx, texts.mounth),
-              callback_data: texts.mounth,
+              callback_data: `location_lat=${arr[0]}_lon=${arr[1]}_${texts.weekly}`,
             },
           ],
           [
             {
-              text: t(ctx, texts.location),
-              callback_data: `send_lat=${arr[0]}_lon=${arr[1]}`,
+              text: t(ctx, texts.change_location),
+              callback_data: texts.region,
             },
           ],
           [

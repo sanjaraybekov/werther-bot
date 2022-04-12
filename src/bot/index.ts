@@ -20,11 +20,6 @@ export const loadBot = () => {
   bot.command("start", (ctx) => main_menu(ctx));
   bot.use(composer);
   bot.use(filterRegions);
-  // bot.use(postMessage);
-  // bot.use(profileFilter);
-  // bot.use(authRouter);
-  // bot.use(locationFilter);
-  // bot.use(addStadium);
   bot.start();
 
   bot.api.sendMessage(DEVELOPER_ID, "bot started /start");
