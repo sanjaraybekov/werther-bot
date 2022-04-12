@@ -67,6 +67,10 @@ composer.callbackQuery(/^location_lat=(\w+)/, async (ctx) => {
             },
           ],
           [
+            // {
+            //   text: t(ctx, texts.go_back),
+            //   callback_data: texts.choose_region,
+            // },
             {
               text: t(ctx, texts.main_menu),
               callback_data: texts.main_menu,

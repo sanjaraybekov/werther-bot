@@ -5,13 +5,13 @@ export const makePost = async (districts: any, ctx: any) => {
   const data = await getWeatherInfo(
     [districts?.latitude, districts?.langitude] || []
   );
-  return `Tanlangan manzil: ${
+  return `✅ Tanlangan manzil: <b>${
     data.name
-  }\nHozirgi vaqt: ${getDate()}\nHavo harorati: ${Math.round(
+  }</b>\n🕔 Hozirgi vaqt: <b>${getDate()}</b>\n🌤 Havo harorati: <b>${Math.round(
     data.main.temp
-  )}°C\nHavo: ${data.weather[0].main} ${
+  )}°C</b>\n🌈 Havo: <b>${data.weather[0].main} ${
     data.weather[0].description
-  }\nShamol tezligi: ${data.wind.speed} km/soat\nNamlik: ${
+  }</b>\n💨 Shamol tezligi: <b>${data.wind.speed} km/soat</b>\n💧 Namlik: <b>${
     data.main.humidity
-  }%\n\n@${ctx.me.username}`;
+  }%</b>\n\n@${ctx.me.username} yaqinlaringizni ham taklif qiling 👨‍👩‍👧‍👦`;
 };
