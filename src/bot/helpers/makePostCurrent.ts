@@ -9,9 +9,9 @@ export const makePostCurrent = (data: any, ctx: any) => {
     data.weather.description
   }</b>\n💨 Shamol tezligi: <b>${data.wind_spd}m/s</b>\n💧 Namlik: <b>${
     data.rh
-  }%</b>\n☁️ Bulut qoplamsi kengligi: <b>${
+  }%</b>\n☁️ Bulut qoplamasi kengligi: <b>${
     data.clouds
-  }%</b>\n🌄 Quyosh chiqishi: <b>${data.sunrise}</b>\n🌅 Quyosh botishi: <b>${
+  }%</b>\n🌅 Quyosh chiqishi: <b>${data.sunrise}</b>\n🌄 Quyosh botishi: <b>${
     data.sunset
   }</b>\n\n\n@${ctx.me.username} yaqinlaringizni ham taklif qiling 👨‍👩‍👧‍👦`;
 };
