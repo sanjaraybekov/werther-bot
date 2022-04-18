@@ -40,7 +40,8 @@ composer.callbackQuery(/^location_lat=(\w+)/, async (ctx) => {
   });
   const type = ctx.callbackQuery?.data?.split("_")[3];
 
-  return ctx.editMessageText(
+  ctx.deleteMessage();
+  return ctx.reply(
     `Sizga xizmat ko'rsatishdan mamnunmiz!\n\n${await makePost(
       { latitude: arr[0], langitude: arr[1] },
       ctx,

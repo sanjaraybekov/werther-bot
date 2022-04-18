@@ -1,19 +1,40 @@
-import { getDate } from "./garDate";
-import { getWeatherInfo } from "./getWeatherInfo";
+import { getWeatherInfo } from "../api/getWeatherInfo";
+import { getWeatherInfoHourly } from "../api/getWeatherInfoHourly";
+import { getWeatherInfoWeekly } from "../api/getWeatherInfoWeekly";
+import { makePostCurrent } from "./makePostCurrent";
+import { makePostHourly } from "./makePostHourly";
+import { makePostWeekly } from "./makePostWeekly";
 
 export const makePost = async (districts: any, ctx: any, type: string) => {
-  console.log(type);
+  var data: any = [];
+  var dataArr: any = [];
+  switch (type) {
+    case "current":
+      data = await getWeatherInfo(
+        [districts?.latitude, districts?.langitude] || []
+      );
+      return makePostCurrent(data.data[0], ctx);
 
-  const data = await getWeatherInfo(
-    [districts?.latitude, districts?.langitude] || []
-  );
-  return `✅ Tanlangan manzil: <b>${
-    data.name
-  }</b>\n🕔 Hozirgi vaqt: <b>${getDate()}</b>\n🌤 Havo harorati: <b>${Math.round(
-    data.main.temp
-  )}°C</b>\n🌈 Havo: <b>${data.weather[0].main} ${
-    data.weather[0].description
-  }</b>\n💨 Shamol tezligi: <b>${data.wind.speed} km/soat</b>\n💧 Namlik: <b>${
-    data.main.humidity
-  }%</b>\n\n@${ctx.me.username} yaqinlaringizni ham taklif qiling 👨‍👩‍👧‍👦`;
+    case "hourly":
+      data = await getWeatherInfoHourly(
+        [districts?.latitude, districts?.langitude] || []
+      );
+      return makePostHourly(data.data[0], ctx);
+    case "weekly":
+      // for (let index = 0; index < 7; index++) {
+      data = await getWeatherInfoWeekly(
+        [districts?.latitude, districts?.langitude] || []
+      );
+      dataArr.push(data.data[0]);
+      // }
+      return makePostWeekly(dataArr, ctx);
+    default:
+      data = await getWeatherInfo(
+        [districts?.latitude, districts?.langitude] || []
+      );
+      return makePostCurrent(data.data[0], ctx);
+  }
 };
+// <img src="https://www.weatherbit.io/static/img/icons/${
+//     weather.icon
+//   }.png"/>
